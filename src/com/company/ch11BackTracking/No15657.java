@@ -21,6 +21,10 @@ public class No15657 {
         arr = new int[n];
         ans = new int[size];
         sb = new StringBuffer();
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken(" "));
+        }
         Arrays.sort(arr);
         solve(0, 0);
 
@@ -28,7 +32,7 @@ public class No15657 {
     }
 
     private static void solve(int depth, int start) {
-        if(depth == n){
+        if(depth == size){
             for (int i = 0; i < size; i++) {
                 sb.append(ans[i]+" ");
             }
@@ -36,9 +40,10 @@ public class No15657 {
             return;
         }
 
-        for (int i = 0; i < n; i++) {
-            ans[depth] = arr[start];
-            solve(depth+1, start+1);
+        for (int i = start; i < n; i++) {
+            int a = arr[i];
+            ans[depth] = a;
+            solve(depth+1, i);
         }
     }
 }
