@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class No11053 {
+public class No11053V2 {
     static int[] arr;
     static int[] lis;
     public static void main(String[] args) throws IOException {
@@ -24,21 +24,32 @@ public class No11053 {
 
         lis[0] = arr[0];
 
-        int idx = 1;
+        int lengthOfLis = 1;
 
         for (int i = 1; i < n; i++) {
-            if (lis[idx - 1] < arr[i]) {
-                lis[idx++] = arr[i];
-            } else if (lis[0] > arr[i]) {
-                lis[0] = arr[i];
-            }
-            else{
-                int tmp = Arrays.binarySearch(lis, 0, idx, arr[i]);
-                lis[tmp < 0 ? -(tmp + 1) : tmp] = arr[i];
+            int key = arr[i];
+
+            if (lis[lengthOfLis - 1] < key)  {
+                lis[lengthOfLis] = key;
+                lengthOfLis ++;
+            }else{
+                int left = 0;
+                int right = lengthOfLis;
+                int mid;
+                while (left < right) {
+                    mid = (left + right) / 2;
+
+                    if(lis[mid] < key){
+                        left = mid +1;
+                    }else {
+                        right = mid;
+                    }
+                }
+
+                lis[left] = key;
             }
         }
-
-        System.out.println(idx);
+        System.out.println(lengthOfLis);
     }
 
     static int binarySearch(int left, int right, int target) {

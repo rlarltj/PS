@@ -42,7 +42,6 @@ public class No14003 {
             }
         }
 
-
         for (int i = N; i > 0 && length > 0; i--) {
             if (length == lisIndex[i]) {
                 result.add(A[i - 1]);
