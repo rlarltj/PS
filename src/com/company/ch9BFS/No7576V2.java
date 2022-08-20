@@ -7,80 +7,82 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class No7576 {
+public class No7576V2 {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         int m = Integer.parseInt(st.nextToken(" "));
         int n = Integer.parseInt(st.nextToken(" "));
 
         int[][] arr = new int[n][m];
         boolean[][] visit = new boolean[n][m];
 
-        for (int i = 0; i < n; i++) {
+        for(int i =0; i<n; i++){
             st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < m; j++) {
+            for(int j=0; j<m; j++){
                 arr[i][j] = Integer.parseInt(st.nextToken(" "));
             }
         }
 
-        Queue<Point> qu = new LinkedList<>();
+        Queue<Pair> qu = new LinkedList<>();
 
-        int[] dx = {0, 1, -1, 0};
-        int[] dy = {1, 0, 0, -1};
-        int day = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (arr[i][j] == 1) {
-                    qu.offer(new Point(i, j));
+                if(arr[i][j] == 1){
+                    qu.offer(new Pair(i, j));
                 }
             }
         }
 
+        int[] dx = {1, 0 , -1, 0};
+        int[] dy = {0, 1 , 0, -1};
+        int day = 0;
+
         while(!qu.isEmpty()){
-            Point p = qu.poll();
+            Pair p = qu.poll();
 
-            for(int k = 0; k<4; k++){
-                int nx = dx[k] + p.x;
-                int ny = dy[k] + p.y;
+            for (int i = 0; i < 4; i++) {
+                int nx = p.x + dx[i];
+                int ny = p.y + dy[i];
 
-                if(nx<0 || nx>= n || ny<0 || ny>=m){
+                if(nx<0 || nx>=n || ny<0 || ny>=m){
                     continue;
                 }
 
-                if(arr[nx][ny] == 0){
-                    qu.offer(new Point(nx, ny));
-                    arr[nx][ny] = arr[p.x][p.y] +1;
+                if(arr[nx][ny] == 0 && !visit[nx][ny]){
+                    visit[nx][ny] = true;
+                    arr[nx][ny] = arr[p.x][p.y]+1;
+                    qu.offer(new Pair(nx, ny));
                 }
-
             }
+
         }
 
         for(int i =0; i<n; i++){
-            for(int j = 0; j<m; j++){
+            for (int j = 0; j < m; j++) {
                 if(arr[i][j] == 0){
                     System.out.println(-1);
-                    System.exit(0);
+                    return;
                 }
 
                 day = Math.max(day, arr[i][j]);
             }
         }
-
         if(day == 1){
             System.out.println(0);
-            System.exit(0);
+            return;
         }else{
             System.out.println(day-1);
+            return;
         }
-
     }
-    public static class Point{
+    public static class Pair{
         int x;
         int y;
 
-        public Point(int x, int y) {
+        public Pair(int x, int y) {
             this.x = x;
             this.y = y;
         }

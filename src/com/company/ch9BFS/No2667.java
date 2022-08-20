@@ -19,6 +19,7 @@ public class No2667 {
                 arr[i][j]= Integer.parseInt(s[j]);
             }
         }
+
         ArrayList<Integer> list = new ArrayList<>();
         int[] dx = {0, 1, 0, -1};
         int[] dy = {1, 0, -1, 0};
@@ -33,8 +34,6 @@ public class No2667 {
                     count++;
                     sum = 1;
 
-
-
                     while(!qu.isEmpty()){
                         Point p = qu.poll();
 
@@ -48,7 +47,6 @@ public class No2667 {
                             if(arr[nx][ny]==1 && !visit[nx][ny]){
                                 qu.offer(new Point(nx,ny));
                                 visit[nx][ny]= true;
-    //                            arr[nx][ny] = arr[p.x][p.y] +1;
                                 sum++;
                             }
                         }
