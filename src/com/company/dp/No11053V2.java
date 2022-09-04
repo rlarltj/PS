@@ -52,7 +52,7 @@ public class No11053V2 {
         System.out.println(lengthOfLis);
     }
 
-    static int binarySearch(int left, int right, int target) {
+        static int binarySearch(int left, int right, int target) {
         int mid;
         while (left < right) {
             mid = (left + right) / 2;
